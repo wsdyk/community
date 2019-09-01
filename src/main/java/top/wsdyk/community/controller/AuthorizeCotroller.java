@@ -7,7 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import top.wsdyk.community.dto.AccessTokenDTO;
 import top.wsdyk.community.dto.GithubUser;
+import top.wsdyk.community.mapper.UserMapper;
+import top.wsdyk.community.model.User;
 import top.wsdyk.community.provider.GithubProvider;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 @Controller
 public class AuthorizeCotroller {
@@ -24,9 +29,13 @@ public class AuthorizeCotroller {
     @Value("${github.redirect.url}")
     private String redirectUrl;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
-                            @RequestParam(name = "state") String state){
+                           @RequestParam(name = "state") String state,
+                           HttpServletRequest request){
 
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setCode(code);
@@ -35,9 +44,22 @@ public class AuthorizeCotroller {
         accessTokenDTO.setClient_secret(clientSecret);
         accessTokenDTO.setState(state);
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
-        GithubUser user = githubProvider.getUser(accessToken);
-        System.out.println(user.getId());
-        return "index";
+        GithubUser githubUser = githubProvider.getUser(accessToken);
+        if(githubUser!=null){
+            User user = new User();
+            user.setToken(UUID.randomUUID().toString());
+            user.setName(githubUser.getName());
+            user.setAccontid(String.valueOf(githubUser.getId()));
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
+            userMapper.insert(user);
+            //登录成功写cookie 和session
+
+            request.getSession().setAttribute("user",githubUser);
+            return "redirect:/";
+        }else {
+            return "redirect:/";
+        }
 
     }
 }

@@ -9,6 +9,9 @@
 
 [github OAuth](https://developer.github.com/apps/building-github-apps/creating-a-github-app/)
 
+[Mybatis](http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/index.html)
+
+[Spring Database](https://docs.spring.io/spring-boot/docs/2.1.7.RELEASE/reference/html/boot-features-sql.html)
 ## 工具
 git
 
