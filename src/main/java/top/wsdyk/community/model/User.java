@@ -4,11 +4,10 @@ public class User {
 
     private Integer id;
     private String name;
-    private String accontid;
+    private String accountid;
     private String token;
     private Long gmtCreate;
     private Long gmtModified;
-
 
     public Integer getId() {
         return id;
@@ -26,12 +25,12 @@ public class User {
         this.name = name;
     }
 
-    public String getAccontid() {
-        return accontid;
+    public String getAccountid() {
+        return accountid;
     }
 
-    public void setAccontid(String accontid) {
-        this.accontid = accontid;
+    public void setAccountid(String accountid) {
+        this.accountid = accountid;
     }
 
     public String getToken() {
