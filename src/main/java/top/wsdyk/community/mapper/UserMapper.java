@@ -9,7 +9,7 @@ import top.wsdyk.community.model.User;
 @Mapper
 public interface UserMapper {
 
-    @Insert("insert into USER (name,account_id,token,gmt_create,gmt_modified) values (#{name},#{accountid},#{token},#{gmtCreate},#{gmtModified})")
+    @Insert("insert into USER (name,account_id,token,gmt_create,gmt_modified,avatar_url) values (#{name},#{accountid},#{token},#{gmtCreate},#{gmtModified},#{avatar_url})")
     void insert(User user);
 
     @Select("select * from USER where token = #{token}")
