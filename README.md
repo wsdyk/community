@@ -14,6 +14,8 @@
 [Spring Database](https://docs.spring.io/spring-boot/docs/2.1.7.RELEASE/reference/html/boot-features-sql.html)
 
 [Maven 依赖检索](https://mvnrepository.com/)
+
+[lombok](https://projectlombok.org/)
 ## 工具
 git
 
